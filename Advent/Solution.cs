@@ -12,6 +12,16 @@ namespace Year2021
             _path = string.Concat("inputs/", this.GetType().Name, ".txt");
         }
 
+        protected void Display(double result)
+        {
+            Display(result.ToString());
+        }
+
+        protected void Display(long result)
+        {
+            Display(result.ToString());
+        }
+
         protected void Display(int result)
         {
             Display(result.ToString());
