@@ -77,7 +77,7 @@ namespace Year2021
         {
             if (!visitedPoints.Contains((i,j))) visitedPoints.Add((i, j));
 
-            var pointsToExplore = GetPointsToCompareTo(i, j)
+            var pointsToExplore = Util.GetGridPointsToCompareTo(i, j, HEIGHT - 1, WIDTH - 1)
                 .Where(points => visitedPoints.Contains(points) == false)
                 .Where(points => _map[points.Item1, points.Item2] != 9);
 
@@ -87,60 +87,9 @@ namespace Year2021
             }
         }
 
-        private (int,int)[] GetPointsToCompareTo(int i, int j)
-        {
-            var heightOuterBound = HEIGHT - 1;
-            var widthOuterBound = WIDTH - 1;
-
-            if (i == 0 && j == 0)
-            {
-                //Top left corner
-                return new (int, int)[] { (i + 1, j), (i, j + 1) };
-            }
-            else if (i == heightOuterBound && j == widthOuterBound)
-            {
-                //Bottom right corner
-                return new (int, int)[] { (i - 1, j), (i, j - 1) };
-            }
-            else if (i == 0 && j == widthOuterBound)
-            {
-                //Top right corner
-                return new (int, int)[] { (i + 1, j), (i, j - 1) };
-            }
-            else if (i == heightOuterBound && j == 0)
-            {
-                //Bottom left corner
-                return new (int, int)[] { (i - 1, j), (i, j + 1) };
-            }
-            else if (i == 0)
-            {
-                //Top row
-                return new (int, int)[] { (i + 1, j), (i, j - 1), (i, j + 1) };
-            }
-            else if (i == heightOuterBound)
-            {
-                //Bottom row
-                return new (int, int)[] { (i - 1, j), (i, j - 1), (i, j + 1) };
-            }
-            else if (j == 0)
-            {
-                //Left side
-                return new (int, int)[] { (i - 1, j), (i + 1, j), (i, j + 1) };
-            }
-            else if (j == widthOuterBound)
-            {
-                //Right side
-                return new (int, int)[] { (i - 1, j), (i + 1, j), (i, j - 1) };
-            }
-            else
-            {
-                return new (int, int)[] { (i - 1, j), (i + 1, j), (i, j - 1), (i, j + 1) };
-            }
-        }
-
         private bool IsLowPoint(int i, int j)
         {
-            var pointsToCompare = GetPointsToCompareTo(i, j);
+            var pointsToCompare = Util.GetGridPointsToCompareTo(i, j, HEIGHT - 1, WIDTH - 1);
             var pointValues = pointsToCompare.Select(points => _map[points.Item1, points.Item2]);
             return pointValues.Min() > _map[i, j];
         }
