@@ -6,7 +6,7 @@ namespace Advent
     {
         static void Main(string[] args)
         {
-            new Day13().Part2();
+            new Day14().Part2();
         }
     }
 }
